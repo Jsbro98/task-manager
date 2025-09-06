@@ -26,5 +26,8 @@
     <ClInclude Include="include\task.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\task-manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
