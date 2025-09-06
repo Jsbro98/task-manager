@@ -131,6 +131,7 @@
     <ClCompile Include="src\task.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\task-manager.h" />
     <ClInclude Include="include\task.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
