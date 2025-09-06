@@ -10,7 +10,7 @@ class TaskManager {
   public:
     Task* get_task(int id);
     void list_tasks();
-    bool mark_task(Task& task);
+    bool mark_task(int id);
     void create_task(int id, const std::string& desc);
 };
 
