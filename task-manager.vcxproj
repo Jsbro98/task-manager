@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\task-manager.cpp" />
     <ClCompile Include="src\task.cpp" />
   </ItemGroup>
   <ItemGroup>
