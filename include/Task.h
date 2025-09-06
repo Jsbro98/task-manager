@@ -1,7 +1,7 @@
-#include <string>
+#ifndef TASK_H
+#define TASK_H
 
-#ifndef TASK_HPP
-#define TASK_HPP
+#include <string>
 
 class Task {
   int id;
@@ -17,4 +17,4 @@ class Task {
     void mark_completed();
 };
 
-#endif  // TASK_HPP
+#endif  // TASK_H
