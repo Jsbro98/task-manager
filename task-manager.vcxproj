@@ -132,6 +132,7 @@
     <ClCompile Include="src\task.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="file-handle.h" />
     <ClInclude Include="include\task-manager.h" />
     <ClInclude Include="include\task.h" />
   </ItemGroup>
