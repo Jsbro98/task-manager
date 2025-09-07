@@ -32,5 +32,8 @@
     <ClInclude Include="include\task-manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="file-handle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
