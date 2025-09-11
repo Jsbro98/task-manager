@@ -24,6 +24,9 @@
     <ClCompile Include="src\task-manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\file-handle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\task.h">
@@ -32,7 +35,7 @@
     <ClInclude Include="include\task-manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="file-handle.h">
+    <ClInclude Include="include\file-handle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

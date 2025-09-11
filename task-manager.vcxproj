@@ -127,12 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\file-handle.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\task-manager.cpp" />
     <ClCompile Include="src\task.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="file-handle.h" />
+    <ClInclude Include="include\file-handle.h" />
     <ClInclude Include="include\task-manager.h" />
     <ClInclude Include="include\task.h" />
   </ItemGroup>

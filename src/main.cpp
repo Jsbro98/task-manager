@@ -1,5 +1,6 @@
 #include "task.h"
 #include "task-manager.h"
+#include "file-handle.h"
 #include <iostream>
 
 int main() {
@@ -38,4 +39,25 @@ int main() {
     std::cout << std::boolalpha << "Task 451 is marked " << task->is_completed()
               << std::endl;
   }
+
+  // test scope 3
+  //{
+  //  std::fstream data_file{open_data("data.txt")};
+
+  //  if (data_file.is_open()) {
+  //    // writing UTF-8 BOM first to make windows notepad happy
+  //    data_file << "\xEF\xBB\xBF" << '\n';
+  //    data_file << "Hello, World!";
+  //    data_file.flush();
+  //    data_file.seekg(0);
+  //  }
+
+  //  for (size_t i = 0; i < 3 && data_file.is_open(); ++i) {
+  //    std::string line;
+  //    std::getline(data_file, line);
+  //    std::cout << line << std::endl;
+  //  }
+
+  //  data_file.close();
+  //}
 }
