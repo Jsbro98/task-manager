@@ -8,10 +8,10 @@ A command-line task manager built in C++ to practice **object-oriented programmi
 
 ### Features (Progress Tracking)
 
-- [ ] Add tasks and descriptions  
+- [X] Add tasks and descriptions  
 - [ ] List tasks with IDs and completion status  
-- [ ] Mark tasks as complete  
-- [ ] Save/load tasks for persistence  
+- [X] Mark tasks as complete  
+- [X] Save/load tasks for persistence  
 - [ ] Optional: advanced command parsing / mini-DSL  
 
 **Skills Demonstrated:**  
