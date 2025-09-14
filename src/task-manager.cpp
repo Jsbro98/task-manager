@@ -6,6 +6,10 @@ void TaskManager::create_task(int id, const std::string& desc) {
   tasks.push_back(Task(id, desc));
 }
 
+void TaskManager::create_task(int id, const std::string& desc, bool completed) {
+  tasks.push_back(Task(id, desc, completed));
+}
+
 Task* TaskManager::get_task(int id) {
   // look through our vector and compare each Task id to the param id
   // return ref to the Task object if found
