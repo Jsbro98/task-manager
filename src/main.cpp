@@ -40,24 +40,26 @@ int main() {
               << std::endl;
   }
 
-  // test scope 3
-  //{
-  //  std::fstream data_file{open_data("data.txt")};
+   // test scope 3
+  {
+    create_file("tasks.txt");
 
-  //  if (data_file.is_open()) {
-  //    // writing UTF-8 BOM first to make windows notepad happy
-  //    data_file << "\xEF\xBB\xBF" << '\n';
-  //    data_file << "Hello, World!";
-  //    data_file.flush();
-  //    data_file.seekg(0);
-  //  }
+    Task task1{6, "Check jira tickets"};
+    Task task2{7, "Look through logs", true};
+    Task task3{8, "Delete old cache"};
 
-  //  for (size_t i = 0; i < 3 && data_file.is_open(); ++i) {
-  //    std::string line;
-  //    std::getline(data_file, line);
-  //    std::cout << line << std::endl;
-  //  }
+    std::vector<Task> tasks{task1, task2, task3};
 
-  //  data_file.close();
-  //}
+    write_tasks(tasks, "tasks.txt");
+
+    tasks.clear();
+    tasks = read_tasks("tasks.txt");
+
+    for (const Task& task : tasks) {
+      std::cout << "ID: " << task.get_id() << '\n';
+      std::cout << "Desc: " << task.get_description() << '\n';
+      std::cout << std::boolalpha << "Completed: " << task.is_completed() << '\n';
+      std::cout << '\n';
+    }
+  }
 }
