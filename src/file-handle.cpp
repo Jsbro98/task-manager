@@ -2,18 +2,30 @@
 #include <fstream>
 #include <string>
 
-void create_file() {
-	const std::string file_name = "tasks.txt";
+void create_file(const std::string& file_name) {
   std::ofstream file(file_name);
 
-  // Write UTF-8 BOM for notepad compatability
+  // write UTF-8 BOM for notepad compatability
 	file << "\xEF\xBB\xBF";
-	file.close();
 }
 
-void write_tasks(const std::vector<Task>& tasks) {
-  // implement writing tasks here
+void write_tasks(const std::vector<Task>& tasks, const std::string& file_name) {
+  std::ofstream file(file_name);
+
+  for (size_t i = 0; i < tasks.size(); ++i) {
+    const Task& task = tasks[i];
+
+    file << task.get_id() << '\n';
+    file << task.get_description() << '\n';
+    file << (task.is_completed() ? "1" : "0") << '\n';
+
+    if (i != tasks.size() - 1) {
+      file << '\n';  // only inserts a blank line between tasks
+    }
+  }
 }
+
+
 
 std::vector<Task> read_tasks(const std::string& file_name) {
    /*
@@ -49,13 +61,10 @@ std::vector<Task> read_tasks(const std::string& file_name) {
     if (!std::getline(file, line)) break;
     completed = (line == "1");
 
-    Task task(id, desc);
-
-    if (completed) task.mark_completed();
+    Task task(id, desc, completed);
 
     tasks.push_back(task);
-
-    // Eat trailing blank line (if any)
-    std::getline(file, line);
   }
+
+  return tasks;
 }
