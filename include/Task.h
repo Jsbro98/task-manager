@@ -10,6 +10,7 @@ class Task {
 
   public:
     Task(int id, const std::string& desc);
+    Task(int id, const std::string& desc, bool completed);
 
     int get_id() const;
     const std::string& get_description() const;
