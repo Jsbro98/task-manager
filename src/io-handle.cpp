@@ -1,5 +1,4 @@
 #include "io-handle.h"
-
 #include <algorithm>
 #include <iostream>
 #include <string>
