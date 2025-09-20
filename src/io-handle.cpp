@@ -12,21 +12,23 @@ void print_commands() {
             << std::endl;
 }
 
-std::string select_command() {
+Command select_command() {
   print_commands();
 
   while (true) {
-    std::string command_selected{};
+    std::string input{};
     std::cout << "Please select a command: ";
-    std::cin >> command_selected;
+    std::cin >> input;
 
     // make command_selected lowercase
-    std::transform(command_selected.begin(), command_selected.end(),
-                   command_selected.begin(), ::tolower);
+    std::transform(input.begin(), input.end(),
+                   input.begin(), ::tolower);
 
-    if (command_selected == "add" || command_selected == "mark" ||
-        command_selected == "remove" || command_selected == "print")
-      return command_selected;
+    // this is ugly, will fix
+    if (input == "add") return Command::Add;
+    if (input == "mark") return Command::Mark;
+    if (input == "remove") return Command::Remove;
+    if (input == "print") return Command::Print;
 
     std::cout << "Invalid command, try again\n";
   }

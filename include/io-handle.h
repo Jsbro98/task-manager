@@ -3,7 +3,9 @@
 
 #include <string>
 
+enum class Command { Add, Mark, Remove, Print, Invalid };
+
 void print_commands();
-std::string select_command();
+Command select_command();
 
 #endif  // IO_HANDLE_H
