@@ -8,6 +8,9 @@ class TaskManager {
   std::vector<Task> tasks;
 
   public:
+    TaskManager(std::vector<Task>& task_list);
+    TaskManager();
+
     Task* get_task(int id);
     void list_tasks();
     bool mark_task(int id);

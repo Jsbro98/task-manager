@@ -1,6 +1,10 @@
 #include "task-manager.h"
 #include <algorithm>
 #include <iostream>
+#include <vector>
+
+TaskManager::TaskManager(std::vector<Task>& task_list) : tasks(task_list) {}
+TaskManager::TaskManager() {}
 
 void TaskManager::create_task(int id, const std::string& desc) {
   tasks.push_back(Task(id, desc));
