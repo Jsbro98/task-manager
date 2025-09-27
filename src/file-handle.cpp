@@ -1,6 +1,7 @@
 #include "file-handle.h"
 #include <fstream>
 #include <string>
+#include <iostream>
 
 void create_file(const std::string& file_name) {
   std::ofstream file(file_name);
@@ -45,6 +46,18 @@ std::vector<Task> read_tasks(const std::string& file_name) {
   std::vector<Task> tasks;
   std::ifstream file(file_name);
 
+  // check for any errors & to see if the file has data
+  // if any errors or empty, return the empty vector
+  if (!file.is_open()) {
+    std::cout << "File failed to open";
+    return tasks;
+  }
+
+  if (file.peek() == std::ifstream::traits_type::eof()) {
+    std::cout << "File is empty";
+    return tasks;
+  }
+
   std::string line{};
   while (true) {
     int id{};
@@ -52,7 +65,9 @@ std::vector<Task> read_tasks(const std::string& file_name) {
     bool completed{};
 
     if (!std::getline(file, line)) break;
-    if (line.empty()) continue;  // skip accidental blanks
+    if (line.empty() || line.compare(0, 3, "\xEF\xBB\xBF") == 0)
+      continue;  // skip accidental blanks or BOM
+
     id = std::stoi(line);
 
     if (!std::getline(file, line)) break;

@@ -5,6 +5,7 @@
 #include "io-handle.h"
 #include <iostream>
 #include <string>
+#include <filesystem>
 
 // make Command vars work with std::cout
 static std::ostream& operator<<(std::ostream& os, Command com) {
@@ -30,9 +31,13 @@ static std::ostream& operator<<(std::ostream& os, Command com) {
 }
 
 int main() { 
-	Command test{select_command()};
+	const std::string file_name = "tasks.txt";
+  const std::string path = "./" + file_name;
+  const bool file_exist = std::filesystem::exists(path);
 
-	std::cout << "You inputted: " << test << std::endl;
+  if (!file_exist) create_file(file_name);
+  std::vector<Task> tasks{read_tasks(file_name)};
+
 
 	return 0;
 }
