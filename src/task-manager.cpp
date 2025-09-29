@@ -48,3 +48,15 @@ bool TaskManager::mark_task(int id) {
 
   return false;
 }
+
+bool TaskManager::remove_task(int id) {
+  auto it = std::find_if(tasks.begin(), tasks.end(),
+                         [id](const Task& t) { return t.get_id() == id; });
+
+  if (it != tasks.end()) {
+    tasks.erase(it);
+    return true;
+  }
+
+  return false;
+}
