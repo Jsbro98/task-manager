@@ -38,6 +38,10 @@ int main() {
   if (!file_exist) create_file(file_name);
   std::vector<Task> tasks{read_tasks(file_name)};
 
+  TaskManager tm{read_tasks(file_name)};
+
+  std::cout << "Starting Task-Manager\n\n";
+  print_commands();
 
 	return 0;
 }
