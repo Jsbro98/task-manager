@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\controller.cpp" />
     <ClCompile Include="src\file-handle.cpp" />
     <ClCompile Include="src\io-handle.cpp" />
     <ClCompile Include="src\main.cpp" />
