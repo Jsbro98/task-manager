@@ -17,6 +17,7 @@ class TaskManager {
     bool mark_task(int id);
     void create_task(int id, const std::string& desc);
     void create_task(int id, const std::string& desc, bool completed);
+    bool remove_task(int id);
 };
 
 #endif  // TASK_MANAGER_H
