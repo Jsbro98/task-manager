@@ -9,6 +9,7 @@ void print_commands() {
             << "2. mark\n"
             << "3. remove\n"
             << "4. print\n"
+            << "5. help\n"
             << std::endl;
 }
 
@@ -23,6 +24,11 @@ Command select_command() {
     // make command_selected lowercase
     std::transform(input.begin(), input.end(),
                    input.begin(), ::tolower);
+
+    if (input == "help") {
+      print_commands();
+      continue;
+    }
 
     // this is ugly, will fix
     if (input == "add") return Command::Add;
