@@ -135,6 +135,7 @@
     <ClCompile Include="tests\manual-tests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\controller.h" />
     <ClInclude Include="include\file-handle.h" />
     <ClInclude Include="include\io-handle.h" />
     <ClInclude Include="include\manual-tests.h" />

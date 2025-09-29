@@ -43,5 +43,9 @@ int main() {
   std::cout << "Starting Task-Manager\n\n";
   print_commands();
 
+  while (true) {
+    Command command{select_command()};
+  }
+
 	return 0;
 }
