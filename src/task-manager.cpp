@@ -11,6 +11,23 @@ TaskManager::TaskManager(const std::vector<Task>& task_list) : tasks(task_list) 
   update_ids();
 }
 
+// instantiate random number generation vars
+std::minstd_rand TaskManager::eng(std::random_device{}());
+std::uniform_int_distribution<int> TaskManager::dist(1, 1'000);
+
+// internal rng helper
+int TaskManager::get_unique_id() {
+  int new_id{1};
+
+  while (true) {
+    new_id = dist(eng);
+
+    if (!current_ids.count(new_id)) break;
+  }
+
+  return new_id;
+}
+
 void TaskManager::create_task(int id, const std::string& desc) {
   tasks.push_back(Task(id, desc));
   current_ids.insert(id);
