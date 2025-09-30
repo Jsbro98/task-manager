@@ -4,10 +4,16 @@
 #include "task.h"
 #include <vector>
 #include <unordered_set>
+#include <random>
 
 class TaskManager {
   std::vector<Task> tasks;
   std::unordered_set<int> current_ids;
+
+  private:
+    static std::minstd_rand eng;
+    static std::uniform_int_distribution<int> dist;
+    int get_unique_id();
 
   public:
     TaskManager() = default;
