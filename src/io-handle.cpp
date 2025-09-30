@@ -20,6 +20,7 @@ Command select_command() {
     std::string input{};
     std::cout << "Please select a command: ";
     std::cin >> input;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     // make command_selected lowercase
     std::transform(input.begin(), input.end(),
@@ -29,6 +30,8 @@ Command select_command() {
       print_commands();
       continue;
     }
+
+    if (input == "exit") return Command::Invalid;
 
     // this is ugly, will fix
     if (input == "add") return Command::Add;
