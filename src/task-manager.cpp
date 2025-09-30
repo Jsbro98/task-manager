@@ -3,16 +3,22 @@
 #include <iostream>
 #include <vector>
 
-TaskManager::TaskManager(std::vector<Task> task_list) : tasks(task_list) {}
-TaskManager::TaskManager(std::vector<Task>& task_list) : tasks(task_list) {}
-TaskManager::TaskManager() = default;
+TaskManager::TaskManager(std::vector<Task>&& task_list)
+    : tasks(std::move(task_list)) {
+  update_ids();
+}
+TaskManager::TaskManager(const std::vector<Task>& task_list) : tasks(task_list) {
+  update_ids();
+}
 
 void TaskManager::create_task(int id, const std::string& desc) {
   tasks.push_back(Task(id, desc));
+  current_ids.insert(id);
 }
 
 void TaskManager::create_task(int id, const std::string& desc, bool completed) {
   tasks.push_back(Task(id, desc, completed));
+  current_ids.insert(id);
 }
 
 Task* TaskManager::get_task(int id) {
@@ -54,9 +60,22 @@ bool TaskManager::remove_task(int id) {
                          [id](const Task& t) { return t.get_id() == id; });
 
   if (it != tasks.end()) {
+    current_ids.erase(id);
     tasks.erase(it);
     return true;
   }
 
   return false;
+}
+
+const std::unordered_set<int>& TaskManager::get_all_ids() const {
+  return current_ids;
+}
+
+void TaskManager::update_ids() {
+  current_ids.clear();
+
+  for (Task& task : tasks) {
+    current_ids.insert(task.get_id());
+  }
 }
