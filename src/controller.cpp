@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-inline int get_id_from_user() { 
+static int get_id_from_user() { 
   int task_id{1}; 
   std::cin >> task_id;
   return task_id;
