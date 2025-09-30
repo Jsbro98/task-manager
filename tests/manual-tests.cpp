@@ -63,4 +63,21 @@ void execute_tests() {
       std::cout << '\n';
     }
   }
+
+  // test scope 4
+  {
+    // uses the previously created tasks.txt file for testing purposes
+    TaskManager tm{read_tasks("tasks.txt")};
+
+    tm.create_task(265, "Start the dryer");
+    tm.create_task(889, "Walk the dog");
+
+    std::cout << "ID set size: " << tm.get_all_ids().size() << '\n';
+
+    for (int id : tm.get_all_ids()) {
+      std::cout << id << '\n';
+    }
+
+    std::cout << std::endl;
+  }
 }
