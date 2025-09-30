@@ -25,17 +25,16 @@ int TaskManager::get_unique_id() {
     if (!current_ids.count(new_id)) break;
   }
 
+  current_ids.insert(new_id);
   return new_id;
 }
 
-void TaskManager::create_task(int id, const std::string& desc) {
-  tasks.push_back(Task(id, desc));
-  current_ids.insert(id);
+void TaskManager::create_task(const std::string& desc) {
+  tasks.push_back(Task(get_unique_id(), desc));
 }
 
-void TaskManager::create_task(int id, const std::string& desc, bool completed) {
-  tasks.push_back(Task(id, desc, completed));
-  current_ids.insert(id);
+void TaskManager::create_task(const std::string& desc, bool completed) {
+  tasks.push_back(Task(get_unique_id(), desc, completed));
 }
 
 Task* TaskManager::get_task(int id) {

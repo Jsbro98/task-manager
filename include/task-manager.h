@@ -23,8 +23,8 @@ class TaskManager {
     Task* get_task(int id);
     void list_tasks();
     bool mark_task(int id);
-    void create_task(int id, const std::string& desc);
-    void create_task(int id, const std::string& desc, bool completed);
+    void create_task(const std::string& desc);
+    void create_task(const std::string& desc, bool completed);
     bool remove_task(int id);
     const std::unordered_set<int>& get_all_ids() const;
     void update_ids();
