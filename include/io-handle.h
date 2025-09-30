@@ -3,7 +3,7 @@
 
 #include <string>
 
-enum class Command { Add, Mark, Remove, Print, Invalid };
+enum class Command { Add, Mark, Remove, Print };
 
 void print_commands();
 Command select_command();
