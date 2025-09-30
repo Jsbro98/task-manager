@@ -3,8 +3,23 @@
 #include <string>
 
 static int get_id_from_user() { 
-  int task_id{1}; 
-  std::cin >> task_id;
+  int task_id{1};
+
+  while (true) {
+    std::cin >> task_id;
+
+    if (std::cin.fail()) {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cout << "Invalid input, please enter a number: ";
+      continue;
+    }
+
+    break;
+  }
+
+  // discard leftover input
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   return task_id;
 }
 
@@ -33,11 +48,12 @@ void Controller::dispatch(Command cmd) {
       break;
     }
     case Command::Mark: {
-      std::cout << "Please provide the id of the task to be marked complete";
-      std::cout << "input '0' to cancel";
-      int task_id{get_id_from_user()};
+      std::cout << "Please provide the id of the task to be marked complete\n";
+      std::cout << "input '0' to cancel\n";
+      int task_id{1};
 
       while (true) {
+        task_id = get_id_from_user();
         if (task_id == 0) return;
 
         Task* task{manager.get_task(task_id)};
@@ -56,10 +72,11 @@ void Controller::dispatch(Command cmd) {
     case Command::Remove: {
       std::cout << "Please enter the task ID you'd like to remove\n";
       std::cout << "input '0' to cancel\n";
-      int task_id{get_id_from_user()};
       bool was_task_removed = false;
+      int task_id{};
 
       do {
+        task_id = get_id_from_user();
         if (task_id == 0) return;
 
         was_task_removed = manager.remove_task(task_id);
