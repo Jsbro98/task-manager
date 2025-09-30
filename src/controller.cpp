@@ -10,15 +10,7 @@ static int get_id_from_user() {
 
 Controller::Controller(TaskManager& man) : manager(man) {};
 
-/*
-* TODOs:
-* 
-* - deal with duplicate id problem in Command::Add
-*/
-
 void Controller::dispatch(Command cmd) {
-  static int id_counter{};
-
   switch (cmd) {
     case Command::Add: {
       std::cout << "Please provide a description of the task\n";
@@ -31,10 +23,9 @@ void Controller::dispatch(Command cmd) {
 
       if (desc == "exit") return;
 
-      manager.create_task(id_counter, desc);
-      std::cout << "Task created with ID: " << id_counter
+      Task* task = manager.create_task(desc);
+      std::cout << "Task created with ID: " << task->get_id()
                 << ", and with the description: " << desc << std::endl;
-      id_counter++;
       break;
     }
     case Command::Mark: {

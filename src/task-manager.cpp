@@ -29,12 +29,15 @@ int TaskManager::get_unique_id() {
   return new_id;
 }
 
-void TaskManager::create_task(const std::string& desc) {
-  tasks.push_back(Task(get_unique_id(), desc));
+// return the newly created task for logging purposes in the CLI
+Task* TaskManager::create_task(const std::string& desc) {
+  tasks.emplace_back(get_unique_id(), desc);
+  return &tasks.back();
 }
 
-void TaskManager::create_task(const std::string& desc, bool completed) {
-  tasks.push_back(Task(get_unique_id(), desc, completed));
+Task* TaskManager::create_task(const std::string& desc, bool completed) {
+  tasks.emplace_back(get_unique_id(), desc, completed);
+  return &tasks.back();
 }
 
 Task* TaskManager::get_task(int id) {
