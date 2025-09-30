@@ -36,8 +36,6 @@ void Controller::dispatch(Command cmd) {
       std::cout << "input 'exit' to cancel\n";
 
       std::string desc{};
-      // clear the input buffer before user input
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       std::getline(std::cin, desc);
 
       if (desc == "exit") return;
@@ -82,7 +80,7 @@ void Controller::dispatch(Command cmd) {
         was_task_removed = manager.remove_task(task_id);
 
         if (was_task_removed) {
-          std::cout << "task with ID: " << task_id << " removed successfully\n";
+          std::cout << "task with ID: " << task_id << " removed successfully\n\n";
         } else {
           std::cout << "task ID not found. Please try again: ";
         }
