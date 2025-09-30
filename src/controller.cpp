@@ -2,17 +2,18 @@
 #include <iostream>
 #include <string>
 
+inline int get_id_from_user() { 
+  int task_id{1}; 
+  std::cin >> task_id;
+  return task_id;
+}
+
 Controller::Controller(TaskManager& man) : manager(man) {};
 
 /*
 * TODOs:
 * 
 * - deal with duplicate id problem in Command::Add
-* 
-* - possibly remove Command::Invalid as filtered cases
-* occur in select_command
-* 
-* - Command::Add only reads one word, change to std::getline
 */
 
 void Controller::dispatch(Command cmd) {
@@ -24,7 +25,9 @@ void Controller::dispatch(Command cmd) {
       std::cout << "input 'exit' to cancel\n";
 
       std::string desc{};
-      std::cin >> desc;
+      // clear the input buffer before user input
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::getline(std::cin, desc);
 
       if (desc == "exit") return;
 
@@ -37,11 +40,9 @@ void Controller::dispatch(Command cmd) {
     case Command::Mark: {
       std::cout << "Please provide the id of the task to be marked complete";
       std::cout << "input '0' to cancel";
-      int task_id{1};
+      int task_id{get_id_from_user()};
 
       while (true) {
-        std::cin >> task_id;
-
         if (task_id == 0) return;
 
         Task* task{manager.get_task(task_id)};
@@ -60,12 +61,10 @@ void Controller::dispatch(Command cmd) {
     case Command::Remove: {
       std::cout << "Please enter the task ID you'd like to remove\n";
       std::cout << "input '0' to cancel\n";
-      int task_id{1};
+      int task_id{get_id_from_user()};
       bool was_task_removed = false;
 
       do {
-        std::cin >> task_id;
-
         if (task_id == 0) return;
 
         was_task_removed = manager.remove_task(task_id);
@@ -81,9 +80,6 @@ void Controller::dispatch(Command cmd) {
     }
     case Command::Print:
       manager.list_tasks();
-      break;
-    case Command::Invalid:
-      std::cout << "Command was invalid, please try again";
       break;
   }
 }
