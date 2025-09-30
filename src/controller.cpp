@@ -8,7 +8,11 @@ static int get_id_from_user() {
   return task_id;
 }
 
-Controller::Controller(TaskManager& man) : manager(man) {};
+
+// create a TaskManager instance for the entire Controller class
+TaskManager Controller::manager{};
+
+void Controller::set_task_manager(TaskManager& man) { Controller::manager = man; }
 
 void Controller::dispatch(Command cmd) {
   switch (cmd) {

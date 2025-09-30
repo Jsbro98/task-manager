@@ -5,12 +5,11 @@
 #include "io-handle.h"
 
 class Controller {
-  TaskManager manager;
-
-  explicit Controller(TaskManager& man);
+  static TaskManager manager;
 
   public:
-    void dispatch(Command cmd);
+    static void dispatch(Command cmd);
+    static void set_task_manager(TaskManager& man);
 };
 
 #endif  // CONTROLLER_H
