@@ -98,3 +98,5 @@ void TaskManager::update_ids() {
     current_ids.insert(task.get_id());
   }
 }
+
+const std::vector<Task>& TaskManager::get_all_tasks() const { return tasks; }
