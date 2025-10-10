@@ -28,6 +28,7 @@ class TaskManager {
     bool remove_task(int id);
     const std::unordered_set<int>& get_all_ids() const;
     void update_ids();
+    const std::vector<Task>& get_all_tasks() const;
 };
 
 #endif  // TASK_MANAGER_H
