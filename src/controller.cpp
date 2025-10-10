@@ -1,6 +1,17 @@
+#include "file-handle.h"
 #include "controller.h"
 #include <iostream>
 #include <string>
+#include <filesystem>
+
+TaskManager make_task_manager(const std::string& file_name) {
+  const std::string path = "./" + file_name;
+  const bool file_exist = std::filesystem::exists(path);
+
+  if (!file_exist) create_file(file_name);
+
+  return TaskManager{read_tasks(file_name)};
+}
 
 static int get_id_from_user() { 
   int task_id{1};
@@ -24,10 +35,11 @@ static int get_id_from_user() {
 }
 
 
-// create a TaskManager instance for the entire Controller class
-TaskManager Controller::manager{};
 
-void Controller::set_task_manager(TaskManager& man) { Controller::manager = man; }
+// create a TaskManager instance for the entire Controller class
+// the file is always named "tasks.txt"
+TaskManager Controller::manager{make_task_manager("tasks.txt")};
+
 
 void Controller::dispatch(Command cmd) {
   switch (cmd) {
@@ -92,4 +104,8 @@ void Controller::dispatch(Command cmd) {
       manager.list_tasks();
       break;
   }
+}
+
+const std::vector<Task>& Controller::get_task_list() {
+  return Controller::manager.get_all_tasks();
 }
