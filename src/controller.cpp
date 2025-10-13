@@ -63,19 +63,26 @@ void Controller::dispatch(Command cmd) {
 			manager.list_tasks();
 			int task_id{1};
 
+			// this could be tightened up more
 			while (true) {
 				task_id = get_id_from_user();
 				if (task_id == 0) return;
 
 				Task* task{manager.get_task(task_id)};
 
-				if (task) {
-					task->mark_completed();
-					std::cout << "Task with ID: " << task_id << " was marked completed\n\n";
-					break;
-				} else {
+				if (!task) {
 					std::cout << "Incorrect ID, please try again\n";
+					continue;
 				}
+
+				if (task->is_completed()) {
+					std::cout << "Task is already complete, try again\n";
+					continue;
+				}
+
+				task->mark_completed();
+				std::cout << "Task with ID: " << task_id << " was marked completed\n\n";
+				break;
 			}
 
 			break;
