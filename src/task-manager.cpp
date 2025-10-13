@@ -4,11 +4,11 @@
 #include <vector>
 
 TaskManager::TaskManager(std::vector<Task>&& task_list)
-    : tasks(std::move(task_list)) {
-  update_ids();
+		: tasks(std::move(task_list)) {
+	update_ids();
 }
 TaskManager::TaskManager(const std::vector<Task>& task_list) : tasks(task_list) {
-  update_ids();
+	update_ids();
 }
 
 // instantiate random number generation vars
@@ -17,86 +17,86 @@ std::uniform_int_distribution<int> TaskManager::dist(1, 1'000);
 
 // internal rng helper
 int TaskManager::get_unique_id() {
-  int new_id{1};
+	int new_id{1};
 
-  while (true) {
-    new_id = dist(eng);
+	while (true) {
+		new_id = dist(eng);
 
-    if (!current_ids.count(new_id)) break;
-  }
+		if (!current_ids.count(new_id)) break;
+	}
 
-  current_ids.insert(new_id);
-  return new_id;
+	current_ids.insert(new_id);
+	return new_id;
 }
 
 // return the newly created task for logging purposes in the CLI
 Task* TaskManager::create_task(const std::string& desc) {
-  tasks.emplace_back(get_unique_id(), desc);
-  return &tasks.back();
+	tasks.emplace_back(get_unique_id(), desc);
+	return &tasks.back();
 }
 
 Task* TaskManager::create_task(const std::string& desc, bool completed) {
-  tasks.emplace_back(get_unique_id(), desc, completed);
-  return &tasks.back();
+	tasks.emplace_back(get_unique_id(), desc, completed);
+	return &tasks.back();
 }
 
 Task* TaskManager::get_task(int id) {
-  // look through our vector and compare each Task id to the param id
-  // return ref to the Task object if found
-  auto it =
-      std::find_if(tasks.begin(), tasks.end(),
-                   [id](const Task& curr) { return curr.get_id() == id; });
+	// look through our vector and compare each Task id to the param id
+	// return ref to the Task object if found
+	auto it =
+			std::find_if(tasks.begin(), tasks.end(),
+									 [id](const Task& curr) { return curr.get_id() == id; });
 
-  // did you find a match?
-  if (it != tasks.end()) {
-    // turn the refrence into a pointer of type Task
-    return &(*it);
-  }
+	// did you find a match?
+	if (it != tasks.end()) {
+		// turn the refrence into a pointer of type Task
+		return &(*it);
+	}
 
-  return nullptr;
+	return nullptr;
 }
 
 void TaskManager::list_tasks() {
-  for (auto& task : tasks) {
-    std::cout << task.get_id() << ", " << task.get_description() << ", "
-              << std::boolalpha << task.is_completed() << '\n';
-  }
+	for (auto& task : tasks) {
+		std::cout << task.get_id() << ", " << task.get_description() << ", "
+							<< std::boolalpha << task.is_completed() << '\n';
+	}
 }
 
 bool TaskManager::mark_task(int id) {
-  Task* task = get_task(id);
+	Task* task = get_task(id);
 
-  if (task != nullptr) {
-    task->mark_completed();
-    return true;
-  }
+	if (task != nullptr) {
+		task->mark_completed();
+		return true;
+	}
 
-  return false;
+	return false;
 }
 
 bool TaskManager::remove_task(int id) {
-  auto it = std::find_if(tasks.begin(), tasks.end(),
-                         [id](const Task& t) { return t.get_id() == id; });
+	auto it = std::find_if(tasks.begin(), tasks.end(),
+												 [id](const Task& t) { return t.get_id() == id; });
 
-  if (it != tasks.end()) {
-    current_ids.erase(id);
-    tasks.erase(it);
-    return true;
-  }
+	if (it != tasks.end()) {
+		current_ids.erase(id);
+		tasks.erase(it);
+		return true;
+	}
 
-  return false;
+	return false;
 }
 
 const std::unordered_set<int>& TaskManager::get_all_ids() const {
-  return current_ids;
+	return current_ids;
 }
 
 void TaskManager::update_ids() {
-  current_ids.clear();
+	current_ids.clear();
 
-  for (Task& task : tasks) {
-    current_ids.insert(task.get_id());
-  }
+	for (Task& task : tasks) {
+		current_ids.insert(task.get_id());
+	}
 }
 
 const std::vector<Task>& TaskManager::get_all_tasks() const { return tasks; }

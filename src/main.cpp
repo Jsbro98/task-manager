@@ -8,19 +8,19 @@
 #include <string>
 
 int main() { 
-  std::cout << "Starting Task-Manager\n";
-  std::cout << "type 'exit' to exit the program\n\n";
+	std::cout << "Starting Task-Manager\n";
+	std::cout << "type 'exit' to exit the program\n\n";
 
-  while (true) {
-    Command command{select_command()};
+	while (true) {
+		Command command{select_command()};
 
-    if (command == Command::Invalid) break;
+		if (command == Command::Invalid) break;
 
-    Controller::dispatch(command);
-  }
+		Controller::dispatch(command);
+	}
 
-  std::string file_name{"tasks.txt"};
-  write_tasks(Controller::get_task_list(), file_name);
+	std::string file_name{"tasks.txt"};
+	write_tasks(Controller::get_task_list(), file_name);
 
 	return 0;
 }
