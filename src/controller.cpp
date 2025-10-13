@@ -54,12 +54,13 @@ void Controller::dispatch(Command cmd) {
 
       Task* task = manager.create_task(desc);
       std::cout << "Task created with ID: " << task->get_id()
-                << ", and with the description: " << desc << std::endl;
+                << ", and with the description: " << desc << '\n' << std::endl;
       break;
     }
     case Command::Mark: {
       std::cout << "Please provide the id of the task to be marked complete\n";
       std::cout << "input '0' to cancel\n";
+      manager.list_tasks();
       int task_id{1};
 
       while (true) {
@@ -70,7 +71,7 @@ void Controller::dispatch(Command cmd) {
 
         if (task) {
           task->mark_completed();
-          std::cout << "Task with ID: " << task_id << " was marked completed\n";
+          std::cout << "Task with ID: " << task_id << " was marked completed\n\n";
           break;
         } else {
           std::cout << "Incorrect ID, please try again\n";
@@ -82,6 +83,7 @@ void Controller::dispatch(Command cmd) {
     case Command::Remove: {
       std::cout << "Please enter the task ID you'd like to remove\n";
       std::cout << "input '0' to cancel\n";
+      manager.list_tasks();
       bool was_task_removed = false;
       int task_id{};
 
@@ -102,6 +104,7 @@ void Controller::dispatch(Command cmd) {
     }
     case Command::Print:
       manager.list_tasks();
+      std::cout << '\n';
       break;
   }
 }

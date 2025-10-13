@@ -18,7 +18,7 @@ Command select_command() {
 
   while (true) {
     std::string input{};
-    std::cout << "Please select a command: ";
+    std::cout << "Please select a command, type 'exit' to leave program: ";
     std::cin >> input;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
