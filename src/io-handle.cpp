@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <unordered_map>
 
 void print_commands() {
 	std::cout << "Valid Commands:\n";
@@ -14,6 +15,13 @@ void print_commands() {
 }
 
 Command select_command() {
+	static const std::unordered_map<std::string_view, Command> commands_map {
+			{"exit", Command::Invalid},
+			{"add", Command::Add},
+			{"mark", Command::Mark},
+			{"remove", Command::Remove},
+			{"print", Command::Print}};
+
 	print_commands();
 
 	while (true) {
@@ -31,13 +39,10 @@ Command select_command() {
 			continue;
 		}
 
-		if (input == "exit") return Command::Invalid;
-
-		// this is ugly, will fix
-		if (input == "add") return Command::Add;
-		if (input == "mark") return Command::Mark;
-		if (input == "remove") return Command::Remove;
-		if (input == "print") return Command::Print;
+		auto it = commands_map.find(input);
+		if (it != commands_map.end()) {
+			return it->second;
+		}
 
 		std::cout << "Invalid command, try again\n";
 	}
