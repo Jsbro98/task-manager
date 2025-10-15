@@ -63,7 +63,6 @@ void Controller::dispatch(Command cmd) {
 			manager.list_tasks();
 			int task_id{1};
 
-			// this could be tightened up more
 			while (true) {
 				task_id = get_id_from_user();
 				if (task_id == 0) return;
