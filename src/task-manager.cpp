@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <random>
+#include <chrono>
 
 TaskManager::TaskManager(std::vector<Task>&& task_list)
 		: tasks(std::move(task_list)) {
@@ -11,9 +13,22 @@ TaskManager::TaskManager(const std::vector<Task>& task_list) : tasks(task_list) 
 	update_ids();
 }
 
-// instantiate random number generation vars
-std::minstd_rand TaskManager::eng(std::random_device{}());
-std::uniform_int_distribution<int> TaskManager::dist(1, 1'000);
+// function used for seeding RNG
+// multiple random devices and the system clock is used for seeding here
+static std::minstd_rand make_engine() {
+  std::random_device rd;
+  std::seed_seq seed{rd(), rd(), rd(), rd(),
+                     static_cast<std::seed_seq::result_type>(
+                         std::chrono::high_resolution_clock::now()
+                             .time_since_epoch()
+                             .count())};
+  return std::minstd_rand(seed);
+}
+
+
+// instantiate random number generation vars within TaskManager
+std::minstd_rand TaskManager::eng = make_engine();
+std::uniform_int_distribution<int> TaskManager::dist(1, 10'000);
 
 // internal rng helper
 int TaskManager::get_unique_id() {
